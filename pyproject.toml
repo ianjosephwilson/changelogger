@@ -1,0 +1,25 @@
+[project]
+name="changelogger"
+dynamic=["version"]
+
+[tool.hatch.envs.default]
+dependencies=[]
+
+[tool.hatch.version]
+path="src/changelogger/__version__.py"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+changelogger = "changelogger:main"
+
+[tool.hatch.envs.default.scripts]
+# Tag current revision and push tag to origin.
+tag=[
+    "git tag -a v`hatch version` -m Version' '`hatch version`",
+    "git push origin v`hatch version`"
+]
+
+bump-changelog="changelogger {root}/CHANGELOG.rst v`hatch version`"
